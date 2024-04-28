@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "900133e5-6355-4b67-a4ea-9ecc0809a1ef",
+		"name": "zadanie Empik",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24547873"
+	},
+	"item": [
+		{
+			"name": "Get request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"var nameValue = responseBody.name;\r",
+							"pm.environment.set(\"postmanName\", nameValue);\r",
+							"\r",
+							"\r",
+							"\r",
+							"var idIsNumber = responseBody.id\r",
+							"pm.test(\"Value is in number format\", function () {\r",
+							"    pm.expect(typeof idIsNumber).to.eql('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking Content-Type header\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							"var responseBodyLength = pm.response.responseSize\r",
+							"pm.test(\"Checking esponse size \", function () {\r",
+							"    pm.expect(responseBodyLength).to.be.within(1000, 10000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking if value include 'https:'\", function () {\r",
+							"    var url = responseBody.url; \r",
+							"    pm.expect(url).to.include(\"https:\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Property 'name' is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.not.equal(null);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.github.com/users/octocat",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"octocat"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
